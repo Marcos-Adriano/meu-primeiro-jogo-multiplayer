@@ -86,6 +86,32 @@
                 font-family: Arial, Helvetica, sans-serif;
                 display: none;
             }
+
+            .setas{
+                margin: 0 auto;
+            }
+
+            .setas button{
+                color: white;
+                background: #0066a2;
+                height: 30px;
+                font-size: 16px;
+                width: 40px;
+                border-style: outset;
+                border-color: #0066A2;
+
+            }
+
+            .setas button:hover{
+                background: #1b87c5;
+                border-color: #1b87c5;
+                cursor: pointer;
+            }
+
+            .setas button:active{
+                background: #54aadb;
+                border-color: #54aadb;
+            }
         </style>
     </head>
     <body>
@@ -98,6 +124,20 @@
         <div id="game-container">
             <canvas id="game-canvas"></canvas>
             <table id="score-table"></table>
+            <div class="controles">
+                <table class="setas">
+                    <tr>
+                        <td></td>
+                        <td><button onclick="setaCima()">↑</button></td>
+                        <td></td>
+                    </tr>
+                    <tr>
+                        <td><button onclick="setaEsquerda()">←</button></td>
+                        <td><button onclick="setaBaixo()">↓</button></td>
+                        <td><button onclick="setaDireita()">→</button></td>
+                    </tr>
+                </table>
+            </div>
         </div>
 
     </div>
@@ -342,6 +382,43 @@
                         return
                     }
                 }
+            }
+
+            function setaCima(){
+                const player = game.players[socket.id]
+                if (player.y - 1 >= 0) {
+                        player.y = player.y - 1
+                        socket.emit('player-move', 'up')
+                        // console.log("oi")
+                        return
+                    }
+            }
+
+            function setaBaixo(){
+                const player = game.players[socket.id]
+                if (player.y + 1 < game.canvasHeight) {
+                        player.y = player.y + 1
+                        socket.emit('player-move', 'down')
+                        return
+                    }
+            }
+
+            function setaDireita(){
+                const player = game.players[socket.id]
+                if (player.x + 1 < game.canvasWidth) {
+                        player.x = player.x + 1
+                        socket.emit('player-move', 'right')
+                        return
+                    }
+            }
+
+            function setaEsquerda(){
+                const player = game.players[socket.id]
+                if (player.x - 1 >= 0) {
+                        player.x = player.x - 1
+                        socket.emit('player-move', 'left')
+                        return
+                    }
             }
 
             // Essa lógica deveria estar no server.
