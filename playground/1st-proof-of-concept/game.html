@@ -9,7 +9,6 @@
 
         <style>
             body {
-                background-color: #EEE;
                 text-align: center;
                 background: #76b852;
                 background: -webkit-linear-gradient(to right, #8DC26F, #76b852); 
@@ -20,6 +19,7 @@
                 display: flex;
                 justify-content: center;
                 align-items: center;
+
             }
 
             #game-canvas {
@@ -40,6 +40,7 @@
                 display: flex;
                 border: 2px solid red;
                 margin: auto;
+                align-items: center;
             }
 
             #score-table tr.header td {
@@ -92,6 +93,7 @@
                 font-family: Arial, Helvetica, sans-serif;
                 display: none;
                 color: #ff3228;
+                color: rgb(230, 230, 230);
             }
 
         </style>
@@ -146,7 +148,7 @@
                     const allPixels = game.canvasWidth * game.canvasHeight
 
                     context.globalAlpha = 1
-                    context.fillStyle = 'white'
+                    context.fillStyle = 'rgb(230, 230, 230)'
                     context.fillRect(0, 0, game.canvasWidth, game.canvasHeight)
 
                     for (const socketId in game.players) {

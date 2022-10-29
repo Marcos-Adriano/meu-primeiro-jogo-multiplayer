@@ -120,8 +120,8 @@ function createGame() {
   let fruitGameInterval
 
   const game = {
-    canvasWidth: 35,
-    canvasHeight: 30,
+    canvasWidth: 30,
+    canvasHeight: 25,
     players: {},
     fruits: {},
     addPlayer,
