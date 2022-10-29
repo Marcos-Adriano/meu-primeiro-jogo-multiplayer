@@ -9,10 +9,17 @@
 
         <style>
             body {
-                margin: 40px 0 0 0;
-                padding: 0;
                 background-color: #EEE;
                 text-align: center;
+                background: #76b852;
+                background: -webkit-linear-gradient(to right, #8DC26F, #76b852); 
+                background: linear-gradient(to right, #8DC26F, #76b852);
+            }
+
+            #game-container{
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
 
             #game-canvas {
@@ -21,29 +28,28 @@
                 image-rendering: -moz-crisp-edges;
                 -webkit-box-shadow: 0px 4px 17px 0px rgba(0,0,0,0.19);
                 -moz-box-shadow: 0px 4px 17px 0px rgba(0,0,0,0.19);
-                box-shadow: 0px 4px 17px 0px rgba(0,0,0,0.19);
-                margin-bottom: 20px;
-                margin-left: 20px;
-                margin-right: 20px;
-                display: inline-block;
-                vertical-align: top;
+                box-shadow: 0px 4px 17px 0px rgba(5, 24, 1, 0.5);
+                margin: auto;
+                border: 2px solid blue;
+                
             }
 
             #score-table {
-                font-size: 13px;
-                vertical-align: top;
-                display: inline-block;
-                font-family: Arial, Helvetica, sans-serif
+                font-size: 16px;
+                font-family: Arial, Helvetica, sans-serif;
+                display: flex;
+                border: 2px solid red;
+                margin: auto;
             }
 
             #score-table tr.header td {
-                border-bottom: 1px solid #CCC;
+                border-bottom: 1px solid #222;
                 padding-bottom: 8px;
             }
 
             #score-table tr.footer td {
-                border-top: 1px solid #CCC;
-                font-size: 11px;
+                border-top: 1px solid #222;
+                font-size: 13px;
             }
 
             #score-table td {
@@ -62,14 +68,14 @@
             }
 
             #score-table .score-value {
-                font-weight: bold;
-                color: #000;
+                color: #222;
                 text-align: right;
             }
 
             #score-table .current-player .socket-id,
             #score-table .current-player .score-value {
-                color: #bdaa27;
+                color: #0024a1;
+                font-weight: bold;
             }
 
             #max-concurrent-connection-message {
@@ -85,33 +91,9 @@
                 left: 0;
                 font-family: Arial, Helvetica, sans-serif;
                 display: none;
+                color: #ff3228;
             }
 
-            .setas{
-                margin: 0 auto;
-            }
-
-            .setas button{
-                color: white;
-                background: #0066a2;
-                height: 30px;
-                font-size: 16px;
-                width: 40px;
-                border-style: outset;
-                border-color: #0066A2;
-
-            }
-
-            .setas button:hover{
-                background: #1b87c5;
-                border-color: #1b87c5;
-                cursor: pointer;
-            }
-
-            .setas button:active{
-                background: #54aadb;
-                border-color: #54aadb;
-            }
         </style>
     </head>
     <body>
@@ -124,20 +106,6 @@
         <div id="game-container">
             <canvas id="game-canvas"></canvas>
             <table id="score-table"></table>
-            <div class="controles">
-                <table class="setas">
-                    <tr>
-                        <td></td>
-                        <td><button onclick="setaCima()">↑</button></td>
-                        <td></td>
-                    </tr>
-                    <tr>
-                        <td><button onclick="setaEsquerda()">←</button></td>
-                        <td><button onclick="setaBaixo()">↓</button></td>
-                        <td><button onclick="setaDireita()">→</button></td>
-                    </tr>
-                </table>
-            </div>
         </div>
 
     </div>
@@ -184,19 +152,19 @@
                     for (const socketId in game.players) {
                         const player = game.players[socketId]
                         context.fillStyle = '#000000'
-                        context.globalAlpha = 0.1
+                        context.globalAlpha = 0.3
                         context.fillRect(player.x, player.y, 1, 1)
                     }
 
                     for (const fruitId in game.fruits) {
                         const fruit = game.fruits[fruitId]
-                        context.fillStyle = '#08a331'
+                        context.fillStyle = '#ff261b'
                         context.globalAlpha = 1
                         context.fillRect(fruit.x, fruit.y, 1, 1)
                     }
 
                     const currentPlayer = game.players[socket.id]
-                    context.fillStyle = '#F0DB4F'
+                    context.fillStyle = '#0024a1'
                     context.globalAlpha = 1
                     context.fillRect(currentPlayer.x, currentPlayer.y, 1, 1)
 
@@ -389,7 +357,6 @@
                 if (player.y - 1 >= 0) {
                         player.y = player.y - 1
                         socket.emit('player-move', 'up')
-                        // console.log("oi")
                         return
                     }
             }
